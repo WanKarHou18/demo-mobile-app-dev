@@ -1,5 +1,5 @@
 // third party
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -15,7 +15,10 @@ import FoodBeverage from "./src/screens/FoodBeverage";
 import Payment from "./src/screens/Payment/Payment";
 import PaymentMethod from "./src/screens/Payment/PaymentMethod";
 import PaymentSuccess from "./src/screens/Payment/PaymentSuccess";
+import DateVenueBooking from "./src/screens/Booking/DateVenueBooking";
 
+// Movies
+import MovieDetail from "./src/screens/Movie/MovieDetail";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -28,10 +31,12 @@ export default function App() {
         >
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="MovieDetail" component={MovieDetail} />
           <Stack.Screen name="FoodBeverage" component={FoodBeverage} />
           <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
           <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+          <Stack.Screen name="DateVenueBooking" component={DateVenueBooking} />
         </Stack.Navigator>
       </NavigationContainer>
     </Wrapper>
