@@ -115,7 +115,7 @@ const BookingSummary = ({ navigation }) => {
       {/* Fixed Button */}
       <TouchableOpacity
         style={styles.proceedButton}
-        onPress={() => navigation.navigate("PaymentScreen")}
+        onPress={() => navigation.navigate("PaymentMethod")}
       >
         <Text style={styles.proceedText}>Proceed to Payment</Text>
       </TouchableOpacity>

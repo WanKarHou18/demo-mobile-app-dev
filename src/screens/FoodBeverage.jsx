@@ -77,7 +77,13 @@ const FoodBeverage = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="Beverages & Food" onSkip={() => {}} showSkip />
+      <Header
+        title="Beverages & Food"
+        onSkip={() => {
+          navigation.navigate("Booking Summary");
+        }}
+        showSkip
+      />
       {/* Tabs */}
       <View style={styles.tabsContainer}>
         {Object.values(TABS).map((tab) => (

@@ -12,9 +12,9 @@ import Home from "./src/screens/Home";
 import FoodBeverage from "./src/screens/FoodBeverage";
 
 // Screens - Paymnet
-import Payment from "./src/screens/Payment/Payment";
 import PaymentMethod from "./src/screens/Payment/PaymentMethod";
 import PaymentSuccess from "./src/screens/Payment/PaymentSuccess";
+import PaymentDebitCard from "./src/screens/Payment/PaymentDebitCard";
 
 // Screens - Movies
 import MovieDetail from "./src/screens/Movie/MovieDetail";
@@ -39,13 +39,13 @@ export default function App() {
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="MovieDetail" component={MovieDetail} />
-          <Stack.Screen name="FoodBeverage" component={FoodBeverage} />
-          <Stack.Screen name="Payment" component={Payment} />
-          <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
-          <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
           <Stack.Screen name="DateVenueBooking" component={DateVenueBooking} />
           <Stack.Screen name="SeatBooking" component={SeatBooking} />
+          <Stack.Screen name="FoodBeverage" component={FoodBeverage} />
           <Stack.Screen name="BookingSummary" component={BookingSummary} />
+          <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+          <Stack.Screen name="PaymentDebitCard" component={PaymentDebitCard} />
+          <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
         </Stack.Navigator>
       </NavigationContainer>
     </Wrapper>
