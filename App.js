@@ -15,10 +15,17 @@ import FoodBeverage from "./src/screens/FoodBeverage";
 import Payment from "./src/screens/Payment/Payment";
 import PaymentMethod from "./src/screens/Payment/PaymentMethod";
 import PaymentSuccess from "./src/screens/Payment/PaymentSuccess";
-import DateVenueBooking from "./src/screens/Booking/DateVenueBooking";
 
-// Movies
+// Screens - Movies
 import MovieDetail from "./src/screens/Movie/MovieDetail";
+
+//Screens - Booking
+import DateVenueBooking from "./src/screens/Booking/DateVenueBooking";
+import SeatBooking from "./src/screens/Booking/SeatBooking";
+import TicketDetail from "./src/screens/Booking/TicketDetail";
+
+// Screens - Food Beverage
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -37,6 +44,8 @@ export default function App() {
           <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
           <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
           <Stack.Screen name="DateVenueBooking" component={DateVenueBooking} />
+          <Stack.Screen name="SeatBooking" component={SeatBooking} />
+          <Stack.Screen name="TicketDetail" component={TicketDetail} />
         </Stack.Navigator>
       </NavigationContainer>
     </Wrapper>
