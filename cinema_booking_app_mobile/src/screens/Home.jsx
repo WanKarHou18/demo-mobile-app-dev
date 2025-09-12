@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons"; // FontAwesome for all icons
+import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
 
 import CustomView from "../components/generic_components/CustomView";
 import SearchBar from "../components/SearchBar";

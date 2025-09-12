@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1",
+    "name": "Inception",
+    "description": "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=150&q=80",
+    "reviews": [
+      { "user": "Alice", "comment": "Mind-bending thriller!", "rating": 5 },
+      { "user": "Bob", "comment": "Loved the visuals.", "rating": 4 }
+    ],
+    "tags": ["thriller", "sci-fi", "action"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "2h28m",
+    "releaseDate": "July 2010"
+  },
+  {
+    "id": "2",
+    "name": "The Dark Knight",
+    "description": "Batman faces the Joker, a criminal mastermind who unleashes chaos on Gotham City.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg",
+    "reviews": [
+      { "user": "Carol", "comment": "Best superhero movie ever!", "rating": 5 },
+      { "user": "Dave", "comment": "Heath Ledger was phenomenal.", "rating": 5 }
+    ],
+    "tags": ["action", "drama", "crime"],
+    "maxStar": 5,
+    "currStar": 5,
+    "duration": "2h32m",
+    "releaseDate": "July 2008"
+  },
+  {
+    "id": "3",
+    "name": "Interstellar",
+    "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=150&q=80",
+    "reviews": [
+      { "user": "Eve", "comment": "A beautiful space epic.", "rating": 4 },
+      { "user": "Frank", "comment": "Complex but rewarding.", "rating": 4 }
+    ],
+    "tags": ["sci-fi", "adventure", "drama"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "2h49m",
+    "releaseDate": "November 2014"
+  },
+  {
+    "id": "4",
+    "name": "Dunkirk",
+    "description": "Allied soldiers are surrounded by the German army and evacuated during a fierce battle in World War II.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://upload.wikimedia.org/wikipedia/en/1/15/Dunkirk_Film_poster.jpg",
+    "reviews": [
+      { "user": "Grace", "comment": "Intense war film.", "rating": 4 },
+      { "user": "Henry", "comment": "Amazing cinematography.", "rating": 5 }
+    ],
+    "tags": ["war", "drama", "history"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "1h46m",
+    "releaseDate": "July 2017"
+  },
+  {
+    "id": "5",
+    "name": "Tenet",
+    "description": "A secret agent embarks on a mission that unfolds beyond real time to prevent World War III.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=150&q=80",
+    "reviews": [
+      { "user": "Ivy", "comment": "Very confusing but cool.", "rating": 3 },
+      { "user": "Jack", "comment": "Great action sequences.", "rating": 4 }
+    ],
+    "tags": ["action", "sci-fi", "thriller"],
+    "maxStar": 5,
+    "currStar": 3,
+    "duration": "2h30m",
+    "releaseDate": "August 2020"
+  },
+  {
+    "id": "6",
+    "name": "Memento",
+    "description": "A man with short-term memory loss attempts to solve his wife's murder using notes and tattoos.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=150&q=80",
+    "reviews": [
+      { "user": "Kate", "comment": "Unique storytelling.", "rating": 5 },
+      { "user": "Leo", "comment": "Keeps you guessing.", "rating": 4 }
+    ],
+    "tags": ["thriller", "mystery", "drama"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "1h53m",
+    "releaseDate": "March 2000"
+  }
+]
