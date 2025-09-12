@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  Dimensions,
 } from "react-native";
 
+import Header from "../components/Header";
 const TABS = {
   FOOD: "Food / Snacks",
   BEVERAGE: "Beverages",
@@ -77,6 +77,7 @@ const FoodBeverage = () => {
 
   return (
     <View style={styles.container}>
+      <Header title="Beverages & Food" onSkip={() => {}} showSkip />
       {/* Tabs */}
       <View style={styles.tabsContainer}>
         {Object.values(TABS).map((tab) => (
@@ -111,7 +112,7 @@ const FoodBeverage = () => {
         <TouchableOpacity
           style={styles.proceedButton}
           onPress={() => {
-            navigation.navigate("TicketDetail");
+            navigation.navigate("BookingSummary");
           }}
         >
           <Text style={styles.proceedText}>Proceed</Text>

@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import { DottedLine } from "../../components/DottedLine";
-
-const TicketDetail = ({ navigation }) => {
+import { DottedLine } from "../components/DottedLine";
+import Header from "../components/Header";
+const BookingSummary = ({ navigation }) => {
   const movie = {
     image:
       "https://m.media-amazon.com/images/I/71niXI3lxlL._AC_UF894,1000_QL80_.jpg",
@@ -37,6 +37,7 @@ const TicketDetail = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Header title="Booking Summary" />
       <ScrollView contentContainerStyle={{ paddingBottom: 150 }}>
         {/* Ticket Container */}
         <View style={styles.ticketWrapper}>
@@ -122,7 +123,7 @@ const TicketDetail = ({ navigation }) => {
   );
 };
 
-export default TicketDetail;
+export default BookingSummary;
 
 const styles = StyleSheet.create({
   container: {

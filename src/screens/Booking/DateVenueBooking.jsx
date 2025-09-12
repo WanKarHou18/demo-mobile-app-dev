@@ -10,6 +10,7 @@ import {
 
 import CustomDropdown from "../../components/generic_components/CustomDropdown";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../../components/Header";
 
 const DateVenueBooking = () => {
   const navigation = useNavigation();
@@ -27,6 +28,7 @@ const DateVenueBooking = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
+        <Header title="Ticket Booking" />
         <ScrollView contentContainerStyle={{ paddingBottom: 120, flexGrow: 1 }}>
           <Text style={styles.title}>Kindly select as appropriate</Text>
 
@@ -95,7 +97,10 @@ const DateVenueBooking = () => {
 
         {/* Bottom Buttons - Fixed */}
         <View style={styles.fixedButtonRow}>
-          <TouchableOpacity style={styles.cancelButton}>
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => navigation.goBack()}
+          >
             <Text style={styles.cancelText}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity

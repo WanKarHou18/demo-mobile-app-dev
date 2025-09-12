@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -7,8 +7,9 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import Header from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
+
+import Header from "../../components/Header";
 
 const TABS = {
   DETAILS: "Details",
@@ -26,9 +27,7 @@ const MovieDetail = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <Header title={movie.name} />
-
       {/* Placeholder Video */}
       <View style={styles.videoContainer}>
         <TouchableOpacity style={styles.playButton}>

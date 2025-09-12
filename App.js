@@ -22,7 +22,7 @@ import MovieDetail from "./src/screens/Movie/MovieDetail";
 //Screens - Booking
 import DateVenueBooking from "./src/screens/Booking/DateVenueBooking";
 import SeatBooking from "./src/screens/Booking/SeatBooking";
-import TicketDetail from "./src/screens/Booking/TicketDetail";
+import BookingSummary from "./src/screens/BookingSummary";
 
 // Screens - Food Beverage
 
@@ -45,7 +45,7 @@ export default function App() {
           <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
           <Stack.Screen name="DateVenueBooking" component={DateVenueBooking} />
           <Stack.Screen name="SeatBooking" component={SeatBooking} />
-          <Stack.Screen name="TicketDetail" component={TicketDetail} />
+          <Stack.Screen name="BookingSummary" component={BookingSummary} />
         </Stack.Navigator>
       </NavigationContainer>
     </Wrapper>

@@ -8,6 +8,8 @@ import {
   ScrollView,
 } from "react-native";
 
+import Header from "../../components/Header";
+
 const seatRows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 8;
 
@@ -35,6 +37,7 @@ const SeatBooking = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <Header title="Ticket Booking" />
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
           <Text style={styles.title}>Select Seat</Text>
