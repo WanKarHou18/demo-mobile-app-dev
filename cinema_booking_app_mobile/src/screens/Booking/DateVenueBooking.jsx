@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,19 +11,25 @@ import {
 import CustomDropdown from "../../components/generic_components/CustomDropdown";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/Header";
+import { useBooking } from "../../hooks/useBooking";
 
 const DateVenueBooking = () => {
   const navigation = useNavigation();
-  const [selectedLocation, setSelectedLocation] = useState("KL");
-  const [selectedCinema, setSelectedCinema] = useState("Mid Valley");
+
+  const { data, loading, error, fetchData } = useBooking();
+
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedCinema, setSelectedCinema] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
 
-  const locations = ["KL", "Selangor", "Penang"];
-  const cinemas = ["Mid Valley", "One Utama", "Pavilion"];
-  const dates = ["12 Sep", "13 Sep", "14 Sep", "15 Sep", "16 Sep"];
-  const times = ["9:20AM", "11:40AM", "2:00PM", "5:30PM", "8:00PM"];
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -36,14 +42,14 @@ const DateVenueBooking = () => {
 
           <CustomDropdown
             label="Location"
-            options={locations}
+            options={data?.state}
             selectedValue={selectedLocation}
             onValueChange={setSelectedLocation}
           />
 
           <CustomDropdown
             label="Cinema Location"
-            options={cinemas}
+            options={data?.cinema}
             selectedValue={selectedCinema}
             onValueChange={setSelectedCinema}
           />
@@ -54,7 +60,7 @@ const DateVenueBooking = () => {
           {/* Time Selection */}
           <Text style={styles.label}>Available Time</Text>
           <View style={styles.timeRow}>
-            {times.map((time) => (
+            {data?.availableTime?.map((time) => (
               <TouchableOpacity
                 key={time}
                 style={[
