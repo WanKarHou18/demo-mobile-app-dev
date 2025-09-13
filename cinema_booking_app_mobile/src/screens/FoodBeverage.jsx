@@ -11,6 +11,7 @@ import {
 
 import Header from "../components/Header";
 import { useFoodBeverage } from "../hooks/useFoodBeverage";
+
 const TABS = {
   FOOD: "Food / Snacks",
   BEVERAGE: "Beverages",
@@ -18,12 +19,13 @@ const TABS = {
 
 const FoodBeverage = () => {
   const navigation = useNavigation();
+  const { data, loading, fetchData } = useFoodBeverage();
+
   const [activeTab, setActiveTab] = useState(TABS.FOOD);
   const [selectedItems, setSelectedItems] = useState([]);
   const [beverageItems, setBeverageItems] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
 
-  const { data, loading, fetchData } = useFoodBeverage();
   const itemsToDisplay = activeTab === TABS.FOOD ? foodItems : beverageItems;
 
   const toggleSelect = (id) => {

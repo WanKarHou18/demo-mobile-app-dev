@@ -10,7 +10,7 @@ export const useMovie = () => {
   };
 
   return {
-    data,
+    movies: data,
     loading,
     error,
     fetchData,

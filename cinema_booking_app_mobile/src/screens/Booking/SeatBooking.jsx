@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import Header from "../../components/Header";
+import { useCart } from "../../hooks/useCart";
 
 const seatRows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 8;
@@ -17,7 +18,13 @@ const seatsPerRow = 8;
 const unavailableSeats = ["A3", "B5", "C2", "E7"];
 
 const SeatBooking = ({ navigation }) => {
+  const { updateCart, cart } = useCart();
+
   const [selectedSeats, setSelectedSeats] = useState([]);
+
+  useEffect(() => {
+    console.log("cart", cart);
+  }, [cart]);
 
   const handleSelectSeat = (seatId) => {
     if (unavailableSeats.includes(seatId)) return;

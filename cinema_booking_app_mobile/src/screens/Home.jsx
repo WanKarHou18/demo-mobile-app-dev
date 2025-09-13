@@ -20,13 +20,13 @@ import { useAllContext } from "../context/allContext";
 const Home = () => {
   // State for search input
   const navigation = useNavigation();
-  const { data, loading, error, fetchData } = useMovie();
+  const { movies, loading, error, fetchData } = useMovie();
   const { setSelectedMovieToView } = useAllContext();
   const [searchText, setSearchText] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
   // Filter movies based on search text
-  const filteredMovies = data.filter((movie) =>
+  const filteredMovies = movies.filter((movie) =>
     movie.name.toLowerCase().includes(searchText.toLowerCase())
   );
 

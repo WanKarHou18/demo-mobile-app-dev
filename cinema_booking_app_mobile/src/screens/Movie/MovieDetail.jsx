@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../components/Header";
 import { useAllContext } from "../../context/allContext";
+import { useCart } from "../../hooks/useCart";
 
 const TABS = {
   DETAILS: "Details",
@@ -19,12 +20,22 @@ const TABS = {
 
 const MovieDetail = () => {
   const { selectedMovieToView } = useAllContext();
+  const { updateCart, cart } = useCart();
   const [activeTab, setActiveTab] = useState(TABS.DETAILS);
   const navigation = useNavigation();
-  console.log("selectedMovieToView", selectedMovieToView);
+
   const handleBookTicket = () => {
+    updateCart({
+      ...cart,
+      movieId: selectedMovieToView?.id,
+      movieName: selectedMovieToView?.name,
+    });
     navigation.navigate("DateVenueBooking", { movie: selectedMovieToView });
   };
+
+  useEffect(() => {
+    console.log("cart", cart);
+  }, [cart]);
 
   return (
     <View style={styles.container}>

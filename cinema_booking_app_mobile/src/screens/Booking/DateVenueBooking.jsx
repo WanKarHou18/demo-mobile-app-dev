@@ -12,11 +12,12 @@ import CustomDropdown from "../../components/generic_components/CustomDropdown";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/Header";
 import { useBooking } from "../../hooks/useBooking";
+import { useCart } from "../../hooks/useCart";
 
 const DateVenueBooking = () => {
   const navigation = useNavigation();
-
-  const { data, loading, error, fetchData } = useBooking();
+  const { data, fetchData } = useBooking();
+  const { updateCart, cart, resetCart } = useCart();
 
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedCinema, setSelectedCinema] = useState("");
@@ -26,10 +27,6 @@ const DateVenueBooking = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -105,13 +102,23 @@ const DateVenueBooking = () => {
         <View style={styles.fixedButtonRow}>
           <TouchableOpacity
             style={styles.cancelButton}
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+              resetCart();
+              navigation.goBack();
+            }}
           >
             <Text style={styles.cancelText}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.proceedButton}
             onPress={() => {
+              updateCart({
+                ...cart,
+                selectedCinema,
+                selectedLocation,
+                selectedDate,
+                selectedTime,
+              });
               navigation.navigate("SeatBooking");
             }}
           >
