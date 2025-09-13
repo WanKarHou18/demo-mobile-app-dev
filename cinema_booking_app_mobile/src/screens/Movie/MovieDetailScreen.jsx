@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ImageBackground,
+  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -46,11 +48,23 @@ const MovieDetailScreen = () => {
         }}
       />
       {/* Placeholder Video */}
+
       <View style={styles.videoContainer}>
-        <TouchableOpacity style={styles.playButton}>
-          <Text style={{ color: "white", fontSize: 18 }}>▶</Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => Linking.openURL(selectedMovieToView?.video)}
+        >
+          <ImageBackground
+            source={{ uri: selectedMovieToView?.photo }}
+            style={styles.videoBackground}
+            imageStyle={{ borderRadius: 10 }}
+          >
+            <View style={styles.overlay}>
+              <Text style={styles.playButton}>▶</Text>
+              <Text style={styles.videoText}>Trailer</Text>
+            </View>
+          </ImageBackground>
         </TouchableOpacity>
-        <Text style={styles.videoText}>Trailer</Text>
       </View>
 
       {/* Bottom Modal Section */}
@@ -151,21 +165,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
   },
+
+  // Style - Video Trailer
   videoContainer: {
     height: "40%",
-    backgroundColor: "#333",
+    width: "100%",
+    marginBottom: 16,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+
+  videoBackground: {
+    height: "100%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
-  playButton: {
-    backgroundColor: "#444",
-    borderRadius: 18,
-    padding: 20,
+
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
   },
+
+  playButton: {
+    fontSize: 36,
+    color: "#fff",
+  },
+
   videoText: {
     color: "#fff",
-    marginTop: 10,
+    fontSize: 14,
+    marginTop: 4,
+    fontWeight: "500",
   },
+
   modalContainer: {
     position: "absolute",
     bottom: 0,
