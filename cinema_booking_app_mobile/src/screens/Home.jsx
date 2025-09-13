@@ -15,12 +15,13 @@ import SearchBar from "../components/SearchBar";
 import { useMovie } from "../hooks/useMovie";
 import CustomPreloader from "../components/generic_components/CustomPreloader";
 import CustomAlert from "../components/generic_components/CustomAlert";
+import { useAllContext } from "../context/allContext";
 
 const Home = () => {
   // State for search input
   const navigation = useNavigation();
   const { data, loading, error, fetchData } = useMovie();
-
+  const { setSelectedMovieToView } = useAllContext();
   const [searchText, setSearchText] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
@@ -70,7 +71,10 @@ const Home = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.movieItem}
-            onPress={() => navigation.navigate("MovieDetail", { movie: item })}
+            onPress={() => {
+              setSelectedMovieToView(item);
+              navigation.navigate("MovieDetail");
+            }}
           >
             <Image source={{ uri: item.photo }} style={styles.movieImage} />
             <Text style={styles.movieTitle}>{item.name}</Text>

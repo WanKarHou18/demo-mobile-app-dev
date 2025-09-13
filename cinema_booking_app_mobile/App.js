@@ -1,11 +1,10 @@
 // third party
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
 
 // this project
-import { Wrapper } from "./src/components/Context/Wrapper";
+import { AllContextProvider } from "./src/context/allContext";
 
 // Screens
 import Splash from "./src/screens/Splash";
@@ -33,7 +32,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <Provider store={store}>
-      <Wrapper>
+      <AllContextProvider>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Splash"
@@ -57,16 +56,7 @@ export default function App() {
             <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
           </Stack.Navigator>
         </NavigationContainer>
-      </Wrapper>
+      </AllContextProvider>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -5,33 +5,34 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Dimensions,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../components/Header";
+import { useAllContext } from "../../context/allContext";
 
 const TABS = {
   DETAILS: "Details",
   REVIEWS: "Reviews",
 };
 
-const MovieDetail = ({ route }) => {
-  const { movie } = route.params;
+const MovieDetail = () => {
+  const { selectedMovieToView } = useAllContext();
   const [activeTab, setActiveTab] = useState(TABS.DETAILS);
   const navigation = useNavigation();
-
+  console.log("selectedMovieToView", selectedMovieToView);
   const handleBookTicket = () => {
-    navigation.navigate("DateVenueBooking", { movie });
+    navigation.navigate("DateVenueBooking", { movie: selectedMovieToView });
   };
 
   return (
     <View style={styles.container}>
-      <Header title={movie.name} />
+      <Header title={selectedMovieToView?.name} />
       {/* Placeholder Video */}
       <View style={styles.videoContainer}>
         <TouchableOpacity style={styles.playButton}>
-          <Text style={{ color: "white", fontSize: 40 }}>▶</Text>
+          <Text style={{ color: "white", fontSize: 18 }}>▶</Text>
         </TouchableOpacity>
         <Text style={styles.videoText}>Trailer</Text>
       </View>
@@ -40,17 +41,28 @@ const MovieDetail = ({ route }) => {
       <View style={styles.modalContainer}>
         {/* Top - Movie Overview */}
         <View style={styles.movieRow}>
-          <Image source={{ uri: movie.photo }} style={styles.movieImage} />
+          <Image
+            source={{ uri: selectedMovieToView?.photo }}
+            style={styles.movieImage}
+          />
           <View style={styles.movieInfo}>
-            <Text style={styles.movieName}>{movie.name}</Text>
+            <Text style={styles.movieName}>{selectedMovieToView?.name}</Text>
             <View style={styles.tagsContainer}>
-              {["Action", "Sci-Fi"].map((tag, index) => (
+              {selectedMovieToView?.tags?.map((tag, index) => (
                 <View key={index} style={styles.tag}>
                   <Text style={styles.tagText}>{tag}</Text>
                 </View>
               ))}
             </View>
-            <Text style={styles.movieRating}>⭐ 4.5/5</Text>
+            <View style={styles.releaseDateContainer}>
+              <Text style={styles.releaseDateText}>
+                Release Date: {selectedMovieToView?.releaseDate || "N/A"}
+              </Text>
+            </View>
+            <Text style={styles.movieRating}>
+              ⭐ {selectedMovieToView?.currStar} /{" "}
+              {selectedMovieToView?.maxStar}
+            </Text>
           </View>
         </View>
 
@@ -77,11 +89,36 @@ const MovieDetail = ({ route }) => {
         {/* Tab Content */}
         <View style={styles.tabContent}>
           {activeTab === TABS.DETAILS && (
-            <Text style={styles.description}>{movie.description}</Text>
+            <Text style={styles.description}>
+              {selectedMovieToView?.description}
+            </Text>
           )}
-          {activeTab === TABS.REVIEWS && (
-            <Text style={styles.reviews}>⭐⭐⭐⭐⭐ Amazing movie!</Text>
-          )}
+
+          <View style={styles.tabContent}>
+            {activeTab === TABS.DETAILS && (
+              <Text style={styles.description}>
+                {selectedMovieToView?.description}
+              </Text>
+            )}
+
+            {activeTab === TABS.REVIEWS && (
+              <ScrollView style={styles.reviewsContainer}>
+                {selectedMovieToView?.reviews?.length > 0 ? (
+                  selectedMovieToView.reviews.map((review, index) => (
+                    <View key={index} style={styles.reviewItem}>
+                      <Text style={styles.reviewUser}>{review.user}</Text>
+                      <Text style={styles.reviewRating}>
+                        {"⭐".repeat(review.rating)}
+                      </Text>
+                      <Text style={styles.reviewComment}>{review.comment}</Text>
+                    </View>
+                  ))
+                ) : (
+                  <Text style={styles.noReviews}>No reviews available.</Text>
+                )}
+              </ScrollView>
+            )}
+          </View>
         </View>
 
         {/* Book Ticket Button */}
@@ -92,8 +129,6 @@ const MovieDetail = ({ route }) => {
     </View>
   );
 };
-
-const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -108,7 +143,7 @@ const styles = StyleSheet.create({
   },
   playButton: {
     backgroundColor: "#444",
-    borderRadius: 50,
+    borderRadius: 18,
     padding: 20,
   },
   videoText: {
@@ -127,7 +162,7 @@ const styles = StyleSheet.create({
   },
   movieRow: {
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   movieImage: {
     width: 100,
@@ -136,7 +171,7 @@ const styles = StyleSheet.create({
   },
   movieInfo: {
     marginLeft: 15,
-    justifyContent: "space-between",
+    gap: 6,
   },
   movieName: {
     fontSize: 20,
@@ -183,18 +218,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontStyle: "italic",
   },
+
+  // Style - Book Ticket Button
   bookButton: {
     backgroundColor: "#E50914",
     paddingVertical: 12,
     alignItems: "center",
     borderRadius: 8,
-    marginTop: 50,
+    marginTop: 20,
   },
   bookButtonText: {
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
   },
+
+  //Styles - Tags for categories
   tagsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -211,6 +250,54 @@ const styles = StyleSheet.create({
   tagText: {
     color: "#fff",
     fontSize: 12,
+  },
+
+  reviewsContainer: {
+    height: 200,
+    paddingVertical: 10,
+  },
+
+  reviewItem: {
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+
+  reviewUser: {
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+
+  reviewRating: {
+    color: "#FFD700",
+    marginBottom: 4,
+  },
+
+  reviewComment: {
+    fontStyle: "italic",
+  },
+
+  noReviews: {
+    textAlign: "center",
+    fontStyle: "italic",
+    color: "#888",
+  },
+
+  // Style - Release Date Style
+  releaseDateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  icon: {
+    marginRight: 6,
+  },
+
+  releaseDateText: {
+    fontSize: 14,
+    color: "#444",
+    fontWeight: "500",
   },
 });
 
