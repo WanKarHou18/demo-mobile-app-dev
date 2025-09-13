@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../components/Header";
-import { useNavigation } from "@react-navigation/native";
+import { useCart } from "../../hooks/useCart";
+import { useBooking } from "../../hooks/useBooking";
 
 const PaymentDebitCardScreen = () => {
   const navigation = useNavigation();
@@ -17,6 +19,17 @@ const PaymentDebitCardScreen = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [saveCard, setSaveCard] = useState(false);
+
+  const { cart } = useCart();
+  const { bookingSetting } = useBooking();
+
+  const totalAmount = useMemo(() => {
+    return (
+      (bookingSetting?.serviceChargePercent || 0) +
+      cart?.foodBeveragePrice +
+      cart?.ticketPrice
+    );
+  }, [cart, bookingSetting]);
 
   const handlePay = () => {
     navigation.navigate("PaymentSuccess");
@@ -90,7 +103,7 @@ const PaymentDebitCardScreen = () => {
 
       {/* Pay Button */}
       <TouchableOpacity style={styles.payButton} onPress={handlePay}>
-        <Text style={styles.payButtonText}>Pay</Text>
+        <Text style={styles.payButtonText}>Pay ${totalAmount}</Text>
       </TouchableOpacity>
     </View>
   );
