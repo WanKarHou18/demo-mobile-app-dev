@@ -4,7 +4,6 @@ import { BASE_URL } from "../constants/Config";
 const api = {
   fetchFoodBeverageItems: async () => {
     try {
-      console.log("dada", `${BASE_URL}/foodbeverage/items`);
       const response = await axios.get(`${BASE_URL}/foodbeverage/items`);
       return response.data;
     } catch (error) {

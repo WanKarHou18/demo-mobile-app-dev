@@ -36,7 +36,6 @@ const PaymentMethodScreen = () => {
     navigation.navigate("PaymentDebitCard");
   };
 
-  console.log("paymentMethod", paymentMethod);
   useEffect(() => {
     fetchPaymentMethodData();
   }, []);

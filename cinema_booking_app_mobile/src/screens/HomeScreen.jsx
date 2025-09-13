@@ -45,10 +45,6 @@ const HomeScreen = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    console.log("profilehaha", profile);
-  }, [profile]);
-
   return (
     <View style={styles.container}>
       {/* Profile Section */}

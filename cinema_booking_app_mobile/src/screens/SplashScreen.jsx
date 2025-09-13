@@ -1,6 +1,6 @@
 // Third party
 import { useEffect } from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import { colors } from "../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,12 +22,7 @@ const SplashScreen = () => {
         alignItems: "center",
         display: "flex",
       }}
-    >
-      <Image
-        style={{ width: "70%", height: "100%", resizeMode: "contain" }}
-        source={require("../../assets/cinema-splash.jpg")}
-      />
-    </View>
+    />
   );
 };
 
