@@ -6,7 +6,6 @@ export const fetchBookingSetting = createAsyncThunk(
   "movie/fetchBookingSetting",
   async (_, thunkAPI) => {
     try {
-      console.log("hello, we are here");
       const result = await api.fetchBookingSetting();
       return result;
     } catch (error) {
