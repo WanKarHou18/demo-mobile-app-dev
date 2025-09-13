@@ -52,7 +52,7 @@ const FoodBeverage = () => {
         <Image source={{ uri: item.image }} style={styles.image} />
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.description}>RM {item?.price}</Text>
+        <Text style={styles.description}>$ {item?.price}</Text>
       </TouchableOpacity>
     );
   };
@@ -77,6 +77,11 @@ const FoodBeverage = () => {
       <Header
         title="Beverages & Food"
         onSkip={() => {
+          updateCart({
+            ...cart,
+            foodBeverage: [],
+            foodBeveragePrice: 0,
+          });
           navigation.navigate("BookingSummary");
         }}
         showSkip
@@ -86,7 +91,6 @@ const FoodBeverage = () => {
             ...cart,
             foodBeverage: [],
             foodBeveragePrice: 0,
-            totalPrice: 0,
           });
           navigation.goBack();
         }}
@@ -126,16 +130,17 @@ const FoodBeverage = () => {
           style={styles.proceedButton}
           onPress={() => {
             const combinedFoodBeverageArr = [...beverageItems, ...foodItems];
-            const foodBeveragePrice = combinedFoodBeverageArr?.reduce(
+            const resultSelectedItems = combinedFoodBeverageArr.filter((item) =>
+              selectedItems.includes(item.id)
+            );
+            const foodBeveragePrice = resultSelectedItems?.reduce(
               (sum, item) => sum + item?.price,
               0
             );
-            const totalPrice = foodBeveragePrice + cart?.ticketPrice;
             updateCart({
               ...cart,
-              foodBeverage: combinedFoodBeverageArr,
+              foodBeverage: resultSelectedItems,
               foodBeveragePrice,
-              totalPrice,
             });
             navigation.navigate("BookingSummary");
           }}

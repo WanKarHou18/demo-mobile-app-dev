@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -6,36 +6,22 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
 } from "react-native";
 import { DottedLine } from "../components/DottedLine";
 import Header from "../components/Header";
 import { useCart } from "../hooks/useCart";
+import { useBooking } from "../hooks/useBooking";
 const BookingSummary = ({ navigation }) => {
   const { cart } = useCart();
-  const movie = {
-    image:
-      "https://m.media-amazon.com/images/I/71niXI3lxlL._AC_UF894,1000_QL80_.jpg",
-    name: "Interstellar",
-    categories: ["Action", "Sci-Fi"],
-    duration: "2h 49m",
-  };
+  const { bookingSetting } = useBooking();
 
-  const booking = {
-    cinema: "Mid Valley",
-    date: "15 Sep 2025",
-    seat: ["A1", "A2"],
-    startTime: "8:00PM",
-    endTime: "10:49PM",
-  };
-
-  const breakdown = {
-    tickets: 5000,
-    food: 5400,
-    charges: 50,
-  };
-
-  const total = breakdown.tickets + breakdown.food + breakdown.charges;
+  const totalAmount = useMemo(() => {
+    return (
+      (bookingSetting?.serviceChargePercent || 0) +
+      cart?.foodBeveragePrice +
+      cart?.ticketPrice
+    );
+  }, [cart, bookingSetting]);
 
   useEffect(() => {
     console.log("bs cart", cart);
@@ -59,17 +45,24 @@ const BookingSummary = ({ navigation }) => {
 
             {/* Top Row */}
             <View style={styles.ticketTop}>
-              <Image source={{ uri: movie.image }} style={styles.movieImage} />
+              <Image
+                source={{ uri: cart?.selectedMovie?.photo }}
+                style={styles.movieImage}
+              />
               <View style={styles.movieInfo}>
-                <Text style={styles.movieName}>{movie.name}</Text>
+                <Text style={styles.movieName}>
+                  {cart?.selectedMovie?.name}
+                </Text>
                 <View style={styles.tagsRow}>
-                  {movie.categories.map((cat) => (
+                  {cart?.selectedMovie?.tags?.map((cat) => (
                     <View key={cat} style={styles.tag}>
                       <Text style={styles.tagText}>{cat}</Text>
                     </View>
                   ))}
                 </View>
-                <Text style={styles.movieDuration}>{movie.duration}</Text>
+                <Text style={styles.movieDuration}>
+                  {cart?.selectedMovie?.duration}
+                </Text>
               </View>
             </View>
 
@@ -78,18 +71,24 @@ const BookingSummary = ({ navigation }) => {
             {/* Bottom Row */}
             <View style={styles.ticketBottom}>
               <Text style={styles.infoText}>
-                <Text style={styles.label}>Cinema:</Text> {booking.cinema}
+                <Text style={styles.label}>Location:</Text>{" "}
+                {cart?.selectedLocation || "-"}
               </Text>
               <Text style={styles.infoText}>
-                <Text style={styles.label}>Date:</Text> {booking.date}
+                <Text style={styles.label}>Cinema:</Text>{" "}
+                {cart?.selectedCinema || "-"}
+              </Text>
+              <Text style={styles.infoText}>
+                <Text style={styles.label}>Date:</Text>{" "}
+                {cart?.selectedDate || "-"}
               </Text>
               <Text style={styles.infoText}>
                 <Text style={styles.label}>Seats:</Text>{" "}
-                {booking.seat.join(", ")}
+                {cart?.selectedSeats?.join(", ")}
               </Text>
               <Text style={styles.infoText}>
-                <Text style={styles.label}>Time:</Text> {booking.startTime} -{" "}
-                {booking.endTime}
+                <Text style={styles.label}>Time Start:</Text>{" "}
+                {cart?.selectedTime || "-"}
               </Text>
             </View>
           </View>
@@ -99,15 +98,31 @@ const BookingSummary = ({ navigation }) => {
         <View style={styles.priceBox}>
           <View style={styles.priceRow}>
             <Text style={styles.priceLabel}>Tickets</Text>
-            <Text style={styles.priceAmount}>RM {breakdown.tickets}</Text>
+            <Text style={styles.priceAmount}>$ {cart?.ticketPrice}</Text>
           </View>
+
           <View style={styles.priceRow}>
             <Text style={styles.priceLabel}>Food & Beverage</Text>
-            <Text style={styles.priceAmount}>RM {breakdown.food}</Text>
+            <Text style={styles.priceAmount}>$ {cart?.foodBeveragePrice}</Text>
           </View>
+
+          {/* Show food item names if any */}
+          {Array.isArray(cart?.foodBeverage) &&
+            cart?.foodBeverage?.length > 0 && (
+              <View style={styles.foodList}>
+                {cart?.foodBeverage?.map((item) => (
+                  <Text key={item.id} style={styles.foodItemText}>
+                    • {item.name}
+                  </Text>
+                ))}
+              </View>
+            )}
+
           <View style={styles.priceRow}>
             <Text style={styles.priceLabel}>Charges</Text>
-            <Text style={styles.priceAmount}>RM {breakdown.charges}</Text>
+            <Text style={styles.priceAmount}>
+              $ {bookingSetting?.serviceChargePercent || 0}
+            </Text>
           </View>
 
           <View style={styles.divider} />
@@ -117,7 +132,7 @@ const BookingSummary = ({ navigation }) => {
               Total Amount Payable
             </Text>
             <Text style={[styles.priceAmount, styles.totalAmount]}>
-              RM {total}
+              ${totalAmount}
             </Text>
           </View>
         </View>
@@ -141,7 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     position: "relative",
-    padding: 20,
+    padding: 15,
   },
   ticketWrapper: {
     marginTop: 20,
@@ -182,7 +197,7 @@ const styles = StyleSheet.create({
   },
   movieImage: {
     width: 100,
-    height: 140,
+    height: 100,
     borderRadius: 8,
     marginRight: 16,
   },
@@ -232,7 +247,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1c1c1e",
     borderRadius: 12,
     padding: 16,
-    marginHorizontal: 20,
+    marginHorizontal: 5,
     marginBottom: 100,
   },
   priceRow: {
@@ -276,5 +291,17 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+
+  // Style - Food Item display
+  foodList: {
+    marginTop: -10,
+    marginBottom: 10,
+    marginLeft: 10,
+  },
+  foodItemText: {
+    color: "#aaa",
+    fontSize: 13,
+    marginLeft: 10,
   },
 });

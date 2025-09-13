@@ -148,7 +148,6 @@ const SeatBooking = ({ navigation }) => {
                 ...cart,
                 selectedSeats,
                 ticketPrice: totalPrice,
-                totalPrice,
               });
               navigation.navigate("FoodBeverage");
             }}
