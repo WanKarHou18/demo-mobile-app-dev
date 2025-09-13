@@ -7,7 +7,7 @@ const initialState = {
     selectedMovie: {},
     selectedSeats: [],
     selectedLocation: "",
-    // selectedDate: "",
+    selectedDate: "",
     selectedCinema: "",
     selectedTime: "",
     foodBeverage: [],

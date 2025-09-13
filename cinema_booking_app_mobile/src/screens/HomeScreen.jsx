@@ -16,11 +16,15 @@ import { useMovie } from "../hooks/useMovie";
 import CustomPreloader from "../components/generic_components/CustomPreloader";
 import CustomAlert from "../components/generic_components/CustomAlert";
 import { useAllContext } from "../context/allContext";
+import { useProfile } from "../hooks/useProfile";
+import CustomAvatar from "../components/generic_components/CustomAvatar";
 
 const HomeScreen = () => {
   // State for search input
   const navigation = useNavigation();
   const { movies, loading, error, fetchData } = useMovie();
+  const { profile, fetchProfileInfoData } = useProfile();
+
   const { setSelectedMovieToView } = useAllContext();
   const [searchText, setSearchText] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -32,6 +36,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     fetchData();
+    fetchProfileInfoData();
   }, []);
 
   useEffect(() => {
@@ -39,6 +44,10 @@ const HomeScreen = () => {
       setShowAlert(true);
     }
   }, [error]);
+
+  useEffect(() => {
+    console.log("profilehaha", profile);
+  }, [profile]);
 
   return (
     <View style={styles.container}>
@@ -50,11 +59,11 @@ const HomeScreen = () => {
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            gap: 5,
+            gap: 15,
           }}
         >
-          <FontAwesome name="user-circle" size={50} color="white" />
-          <Text style={styles.username}>Hello, John Doe</Text>
+          <CustomAvatar uri={profile?.photo} size={60} />
+          <Text style={styles.username}>Hello, {profile?.name}</Text>
         </CustomView>
         <View style={styles.profileTextContainer}>
           <TouchableOpacity style={styles.notificationIcon}>

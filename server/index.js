@@ -5,6 +5,7 @@ const moviesRouter = require("./api/movies");
 const bookingRouter = require("./api/booking");
 const foodBeverageRouter = require("./api/foodBeverage");
 const paymentRouter = require("./api/payment");
+const profileRouter = require("./api/profile");
 
 const app = express();
 const PORT = 3000;
@@ -16,6 +17,7 @@ app.use("/movies", moviesRouter);
 app.use("/booking", bookingRouter);
 app.use("/foodbeverage", foodBeverageRouter);
 app.use("/payment", paymentRouter);
+app.use("/profile", profileRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
