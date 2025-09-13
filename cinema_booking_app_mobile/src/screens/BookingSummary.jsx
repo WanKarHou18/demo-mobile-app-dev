@@ -37,7 +37,12 @@ const BookingSummary = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header title="Booking Summary" />
+      <Header
+        title="Booking Summary"
+        onBackPress={() => {
+          navigation.goBack();
+        }}
+      />
       <ScrollView contentContainerStyle={{ paddingBottom: 150 }}>
         {/* Ticket Container */}
         <View style={styles.ticketWrapper}>

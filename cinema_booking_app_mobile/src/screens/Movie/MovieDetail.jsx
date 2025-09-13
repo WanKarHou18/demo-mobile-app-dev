@@ -20,7 +20,7 @@ const TABS = {
 
 const MovieDetail = () => {
   const { selectedMovieToView } = useAllContext();
-  const { updateCart, cart } = useCart();
+  const { updateCart, cart, resetCart } = useCart();
   const [activeTab, setActiveTab] = useState(TABS.DETAILS);
   const navigation = useNavigation();
 
@@ -39,7 +39,13 @@ const MovieDetail = () => {
 
   return (
     <View style={styles.container}>
-      <Header title={selectedMovieToView?.name} />
+      <Header
+        title={selectedMovieToView?.name}
+        onBackPress={() => {
+          resetCart();
+          navigation.goBack();
+        }}
+      />
       {/* Placeholder Video */}
       <View style={styles.videoContainer}>
         <TouchableOpacity style={styles.playButton}>

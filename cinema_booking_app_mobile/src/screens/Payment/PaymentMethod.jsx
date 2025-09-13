@@ -39,7 +39,12 @@ const PaymentMethod = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="Payment" />
+      <Header
+        title="Payment"
+        onBackPress={() => {
+          navigation.goBack();
+        }}
+      />
       <Text style={styles.title}>
         How would you like to make the payment? Kindly select your preferred
         option

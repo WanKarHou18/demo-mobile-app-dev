@@ -71,6 +71,9 @@ const FoodBeverage = () => {
           navigation.navigate("Booking Summary");
         }}
         showSkip
+        onBackPress={() => {
+          navigation.goBack();
+        }}
       />
       {/* Tabs */}
       <View style={styles.tabsContainer}>

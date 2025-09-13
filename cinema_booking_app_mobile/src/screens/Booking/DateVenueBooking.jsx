@@ -31,7 +31,13 @@ const DateVenueBooking = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Header title="Ticket Booking" />
+        <Header
+          title="Ticket Booking"
+          onBackPress={() => {
+            resetCart();
+            navigation.goBack();
+          }}
+        />
         <ScrollView contentContainerStyle={{ paddingBottom: 120, flexGrow: 1 }}>
           <Text style={styles.title}>Kindly select as appropriate</Text>
 

@@ -3,17 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 
-const Header = ({ title, showSkip = false, onSkip }) => {
+const Header = ({ title, onBackPress, showSkip = false, onSkip }) => {
   const navigation = useNavigation();
-
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
 
   return (
     <View style={styles.container}>
       {/* Left: Back button */}
-      <TouchableOpacity onPress={handleBackPress} style={styles.left}>
+      <TouchableOpacity onPress={onBackPress} style={styles.left}>
         <FontAwesome name="chevron-left" size={24} color="white" />
       </TouchableOpacity>
 
@@ -26,7 +22,7 @@ const Header = ({ title, showSkip = false, onSkip }) => {
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       ) : (
-        <View style={styles.right} /> // Placeholder to keep layout aligned
+        <View style={styles.right} />
       )}
     </View>
   );

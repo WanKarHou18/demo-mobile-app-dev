@@ -44,7 +44,12 @@ const SeatBooking = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Header title="Ticket Booking" />
+      <Header
+        title="Ticket Booking"
+        onBackPress={() => {
+          navigation.goBack();
+        }}
+      />
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
           <Text style={styles.title}>Select Seat</Text>

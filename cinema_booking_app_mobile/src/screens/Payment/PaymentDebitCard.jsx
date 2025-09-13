@@ -24,7 +24,12 @@ const PaymentDebitCard = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="Card Payment" />
+      <Header
+        title="Card Payment"
+        onBackPress={() => {
+          navigation.goBack();
+        }}
+      />
       <Text style={styles.title}>Please enter your card details</Text>
       {/* Card Number */}
       <View style={styles.inputGroup}>
