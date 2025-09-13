@@ -7,12 +7,14 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomDropdown from "../../components/generic_components/CustomDropdown";
-import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/Header";
 import { useBooking } from "../../hooks/useBooking";
 import { useCart } from "../../hooks/useCart";
+import CustomDatePicker from "../../components/generic_components/CustomDatePicker";
+import formatDateWithMoment from "../../helpers/DateHelper";
 
 const DateVenueBooking = () => {
   const navigation = useNavigation();
@@ -25,7 +27,7 @@ const DateVenueBooking = () => {
   const [selectedCinema, setSelectedCinema] = useState(
     cart?.selectedCinema || ""
   );
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(cart?.selectedDate || "");
   const [selectedTime, setSelectedTime] = useState(cart?.selectedTime || "");
 
   useEffect(() => {
@@ -67,6 +69,12 @@ const DateVenueBooking = () => {
 
           {/* Date Selection */}
           <Text style={styles.label}>Date</Text>
+          <CustomDatePicker
+            label=""
+            onConfirm={(date) => {
+              setSelectedDate(formatDateWithMoment(date));
+            }}
+          />
 
           {/* Time Selection */}
           <Text style={styles.label}>Available Time</Text>
@@ -130,7 +138,7 @@ const DateVenueBooking = () => {
                 ...cart,
                 selectedCinema,
                 selectedLocation,
-                // selectedDate,
+                selectedDate,
                 selectedTime,
               });
               navigation.navigate("SeatBooking");
