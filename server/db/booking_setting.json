@@ -1,5 +1,6 @@
 {
   "state": ["KL", "Selangor", "Penang"],
   "cinema": ["Mid Valley", "One Utama", "Pavilion"],
-  "availableTime": ["9:20AM", "11:40AM", "2:00PM", "5:30PM", "8:00PM"]
+  "availableTime": ["9:20AM", "11:40AM", "2:00PM", "5:30PM", "8:00PM"],
+  "ticketPrice": 15
 }

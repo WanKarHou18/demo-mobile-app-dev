@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "Popcorn",
+    "description": "Classic salted popcorn",
+    "image": "https://cdn-icons-png.flaticon.com/512/1046/1046751.png",
+    "price": 12,
+    "type": "food"
+  },
+  {
+    "id": "2",
+    "name": "Nachos",
+    "description": "Cheesy nachos",
+    "image": "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
+    "price": 12,
+    "type": "food"
+  },
+  {
+    "id": "3",
+    "name": "Coke",
+    "description": "Chilled Coca-Cola",
+    "image": "https://cdn-icons-png.flaticon.com/512/1046/1046786.png",
+    "price": 8,
+    "type": "beverage"
+  },
+  {
+    "id": "4",
+    "name": "Sprite",
+    "description": "Lemon-lime soda",
+    "image": "https://cdn-icons-png.flaticon.com/512/1046/1046803.png",
+    "price": 8,
+    "type": "beverage"
+  }
+]

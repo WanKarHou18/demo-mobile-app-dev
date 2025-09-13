@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,46 +10,20 @@ import {
 } from "react-native";
 
 import Header from "../components/Header";
+import { useFoodBeverage } from "../hooks/useFoodBeverage";
 const TABS = {
   FOOD: "Food / Snacks",
   BEVERAGE: "Beverages",
 };
 
-const foodItems = [
-  {
-    id: "1",
-    name: "Popcorn",
-    description: "Classic salted popcorn",
-    image: "https://cdn-icons-png.flaticon.com/512/1046/1046751.png",
-  },
-  {
-    id: "2",
-    name: "Nachos",
-    description: "Cheesy nachos",
-    image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
-  },
-];
-
-const beverageItems = [
-  {
-    id: "3",
-    name: "Coke",
-    description: "Chilled Coca-Cola",
-    image: "https://cdn-icons-png.flaticon.com/512/1046/1046786.png",
-  },
-  {
-    id: "4",
-    name: "Sprite",
-    description: "Lemon-lime soda",
-    image: "https://cdn-icons-png.flaticon.com/512/1046/1046803.png",
-  },
-];
-
 const FoodBeverage = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(TABS.FOOD);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [beverageItems, setBeverageItems] = useState([]);
+  const [foodItems, setFoodItems] = useState([]);
 
+  const { data, loading, fetchData } = useFoodBeverage();
   const itemsToDisplay = activeTab === TABS.FOOD ? foodItems : beverageItems;
 
   const toggleSelect = (id) => {
@@ -71,9 +45,21 @@ const FoodBeverage = () => {
         <Image source={{ uri: item.image }} style={styles.image} />
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.description}>RM {item?.price}</Text>
       </TouchableOpacity>
     );
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setBeverageItems(data?.filter((item) => item?.type === "beverage"));
+      setFoodItems(data?.filter((item) => item?.type === "food"));
+    }
+  }, [data]);
 
   return (
     <View style={styles.container}>
