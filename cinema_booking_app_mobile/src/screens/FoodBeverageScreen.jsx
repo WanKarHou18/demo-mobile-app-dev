@@ -18,7 +18,7 @@ const TABS = {
   BEVERAGE: "Beverages",
 };
 
-const FoodBeverage = () => {
+const FoodBeverageScreen = () => {
   const navigation = useNavigation();
   const { data, fetchData } = useFoodBeverage();
   const { updateCart, cart } = useCart();
@@ -152,7 +152,7 @@ const FoodBeverage = () => {
   );
 };
 
-export default FoodBeverage;
+export default FoodBeverageScreen;
 
 const styles = StyleSheet.create({
   container: {

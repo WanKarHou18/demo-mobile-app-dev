@@ -11,7 +11,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Header from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
 
-const PaymentDebitCard = () => {
+const PaymentDebitCardScreen = () => {
   const navigation = useNavigation();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -96,7 +96,7 @@ const PaymentDebitCard = () => {
   );
 };
 
-export default PaymentDebitCard;
+export default PaymentDebitCardScreen;
 
 const styles = StyleSheet.create({
   container: {

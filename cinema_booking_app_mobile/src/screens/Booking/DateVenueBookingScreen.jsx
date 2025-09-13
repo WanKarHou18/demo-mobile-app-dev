@@ -16,7 +16,7 @@ import { useCart } from "../../hooks/useCart";
 import CustomDatePicker from "../../components/generic_components/CustomDatePicker";
 import formatDateWithMoment from "../../helpers/DateHelper";
 
-const DateVenueBooking = () => {
+const DateVenueBookingScreen = () => {
   const navigation = useNavigation();
   const { bookingSetting, fetchData } = useBooking();
   const { updateCart, cart, resetCart } = useCart();
@@ -152,7 +152,7 @@ const DateVenueBooking = () => {
   );
 };
 
-export default DateVenueBooking;
+export default DateVenueBookingScreen;
 
 const styles = StyleSheet.create({
   safeArea: {

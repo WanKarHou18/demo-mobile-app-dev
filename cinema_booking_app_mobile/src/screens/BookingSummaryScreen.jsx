@@ -11,7 +11,7 @@ import { DottedLine } from "../components/DottedLine";
 import Header from "../components/Header";
 import { useCart } from "../hooks/useCart";
 import { useBooking } from "../hooks/useBooking";
-const BookingSummary = ({ navigation }) => {
+const BookingSummaryScreen = ({ navigation }) => {
   const { cart } = useCart();
   const { bookingSetting } = useBooking();
 
@@ -149,7 +149,7 @@ const BookingSummary = ({ navigation }) => {
   );
 };
 
-export default BookingSummary;
+export default BookingSummaryScreen;
 
 const styles = StyleSheet.create({
   container: {

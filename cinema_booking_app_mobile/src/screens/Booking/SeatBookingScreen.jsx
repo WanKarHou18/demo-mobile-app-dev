@@ -18,7 +18,7 @@ const seatsPerRow = 8;
 // Dummy unavailable seats
 const unavailableSeats = ["A3", "B5", "C2", "E7"];
 
-const SeatBooking = ({ navigation }) => {
+const SeatBookingScreen = ({ navigation }) => {
   const { updateCart, cart } = useCart();
   const { bookingSetting } = useBooking();
 
@@ -160,7 +160,7 @@ const SeatBooking = ({ navigation }) => {
   );
 };
 
-export default SeatBooking;
+export default SeatBookingScreen;
 
 const styles = StyleSheet.create({
   safeArea: {

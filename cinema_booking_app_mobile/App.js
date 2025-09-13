@@ -7,22 +7,22 @@ import { Provider } from "react-redux";
 import { AllContextProvider } from "./src/context/allContext";
 
 // Screens
-import Splash from "./src/screens/Splash";
-import Home from "./src/screens/Home";
-import FoodBeverage from "./src/screens/FoodBeverage";
+import SplashScreen from "./src/screens/SplashScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import FoodBeverageScreen from "./src/screens/FoodBeverageScreen";
 
 // Screens - Paymnet
-import PaymentMethod from "./src/screens/Payment/PaymentMethod";
-import PaymentSuccess from "./src/screens/Payment/PaymentSuccess";
-import PaymentDebitCard from "./src/screens/Payment/PaymentDebitCard";
+import PaymentMethodScreen from "./src/screens/Payment/PaymentMethodScreen";
+import PaymentSuccessScreen from "./src/screens/Payment/PaymentSuccessScreen";
+import PaymentDebitCardScreen from "./src/screens/Payment/PaymentDebitCardScreen";
 
 // Screens - Movies
-import MovieDetail from "./src/screens/Movie/MovieDetail";
+import MovieDetailScreen from "./src/screens/Movie/MovieDetailScreen";
 
 //Screens - Booking
-import DateVenueBooking from "./src/screens/Booking/DateVenueBooking";
-import SeatBooking from "./src/screens/Booking/SeatBooking";
-import BookingSummary from "./src/screens/BookingSummary";
+import DateVenueBookingScreen from "./src/screens/Booking/DateVenueBookingScreen";
+import SeatBookingScreen from "./src/screens/Booking/SeatBookingScreen";
+import BookingSummaryScreen from "./src/screens/BookingSummaryScreen";
 
 import store from "./src/redux/store";
 // Screens - Food Beverage
@@ -38,22 +38,31 @@ export default function App() {
             initialRouteName="Splash"
             screenOptions={{ headerShown: false }}
           >
-            <Stack.Screen name="Splash" component={Splash} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="MovieDetail" component={MovieDetail} />
+            <Stack.Screen name="Splash" component={SplashScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="MovieDetail" component={MovieDetailScreen} />
             <Stack.Screen
               name="DateVenueBooking"
-              component={DateVenueBooking}
+              component={DateVenueBookingScreen}
             />
-            <Stack.Screen name="SeatBooking" component={SeatBooking} />
-            <Stack.Screen name="FoodBeverage" component={FoodBeverage} />
-            <Stack.Screen name="BookingSummary" component={BookingSummary} />
-            <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+            <Stack.Screen name="SeatBooking" component={SeatBookingScreen} />
+            <Stack.Screen name="FoodBeverage" component={FoodBeverageScreen} />
+            <Stack.Screen
+              name="BookingSummary"
+              component={BookingSummaryScreen}
+            />
+            <Stack.Screen
+              name="PaymentMethod"
+              component={PaymentMethodScreen}
+            />
             <Stack.Screen
               name="PaymentDebitCard"
-              component={PaymentDebitCard}
+              component={PaymentDebitCardScreen}
             />
-            <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+            <Stack.Screen
+              name="PaymentSuccess"
+              component={PaymentSuccessScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </AllContextProvider>

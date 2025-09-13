@@ -18,7 +18,7 @@ const TABS = {
   REVIEWS: "Reviews",
 };
 
-const MovieDetail = () => {
+const MovieDetailScreen = () => {
   const { selectedMovieToView } = useAllContext();
   const { updateCart, cart, resetCart } = useCart();
   const [activeTab, setActiveTab] = useState(TABS.DETAILS);
@@ -317,4 +317,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MovieDetail;
+export default MovieDetailScreen;

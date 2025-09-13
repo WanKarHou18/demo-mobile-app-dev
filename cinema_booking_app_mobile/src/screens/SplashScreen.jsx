@@ -4,7 +4,7 @@ import { View, Image } from "react-native";
 import { colors } from "../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 
-const Splash = () => {
+const SplashScreen = () => {
   const nav = useNavigation();
 
   useEffect(() => {
@@ -31,4 +31,4 @@ const Splash = () => {
   );
 };
 
-export default Splash;
+export default SplashScreen;

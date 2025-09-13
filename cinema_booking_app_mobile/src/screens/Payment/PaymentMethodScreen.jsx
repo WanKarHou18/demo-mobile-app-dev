@@ -8,7 +8,7 @@ import {
 import Header from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
 
-const PaymentMethod = () => {
+const PaymentMethodScreen = () => {
   const navigation = useNavigation();
   const options = [
     {
@@ -67,7 +67,7 @@ const PaymentMethod = () => {
   );
 };
 
-export default PaymentMethod;
+export default PaymentMethodScreen;
 
 const styles = StyleSheet.create({
   container: {

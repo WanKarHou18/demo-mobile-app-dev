@@ -17,7 +17,7 @@ import CustomPreloader from "../components/generic_components/CustomPreloader";
 import CustomAlert from "../components/generic_components/CustomAlert";
 import { useAllContext } from "../context/allContext";
 
-const Home = () => {
+const HomeScreen = () => {
   // State for search input
   const navigation = useNavigation();
   const { movies, loading, error, fetchData } = useMovie();
@@ -163,4 +163,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default HomeScreen;

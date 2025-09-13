@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const PaymentSuccess = () => {
+const PaymentSuccessScreen = () => {
   const navigation = useNavigation();
 
   return (
@@ -56,7 +56,7 @@ const PaymentSuccess = () => {
   );
 };
 
-export default PaymentSuccess;
+export default PaymentSuccessScreen;
 
 const styles = StyleSheet.create({
   container: {
