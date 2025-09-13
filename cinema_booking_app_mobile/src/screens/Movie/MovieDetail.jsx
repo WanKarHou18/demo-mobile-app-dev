@@ -27,14 +27,13 @@ const MovieDetail = () => {
   const handleBookTicket = () => {
     updateCart({
       ...cart,
-      movieId: selectedMovieToView?.id,
-      movieName: selectedMovieToView?.name,
+      selectedMovie: selectedMovieToView,
     });
-    navigation.navigate("DateVenueBooking", { movie: selectedMovieToView });
+    navigation.navigate("DateVenueBooking");
   };
 
   useEffect(() => {
-    console.log("cart", cart);
+    console.log("md cart", cart);
   }, [cart]);
 
   return (

@@ -11,6 +11,7 @@ import {
 
 import Header from "../components/Header";
 import { useFoodBeverage } from "../hooks/useFoodBeverage";
+import { useCart } from "../hooks/useCart";
 
 const TABS = {
   FOOD: "Food / Snacks",
@@ -19,11 +20,15 @@ const TABS = {
 
 const FoodBeverage = () => {
   const navigation = useNavigation();
-  const { data, loading, fetchData } = useFoodBeverage();
+  const { data, fetchData } = useFoodBeverage();
+  const { updateCart, cart } = useCart();
 
   const [activeTab, setActiveTab] = useState(TABS.FOOD);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [beverageItems, setBeverageItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(
+    cart?.foodBeverage?.filter((item) => item?.id)
+  );
+
+  const [beverageItems, setBeverageItems] = useState();
   const [foodItems, setFoodItems] = useState([]);
 
   const itemsToDisplay = activeTab === TABS.FOOD ? foodItems : beverageItems;
@@ -63,15 +68,26 @@ const FoodBeverage = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log("fb cart", cart);
+  }, [cart]);
+
   return (
     <View style={styles.container}>
       <Header
         title="Beverages & Food"
         onSkip={() => {
-          navigation.navigate("Booking Summary");
+          navigation.navigate("BookingSummary");
         }}
         showSkip
         onBackPress={() => {
+          // Clear this screen data in slice - cart
+          updateCart({
+            ...cart,
+            foodBeverage: [],
+            foodBeveragePrice: 0,
+            totalPrice: 0,
+          });
           navigation.goBack();
         }}
       />
@@ -109,6 +125,18 @@ const FoodBeverage = () => {
         <TouchableOpacity
           style={styles.proceedButton}
           onPress={() => {
+            const combinedFoodBeverageArr = [...beverageItems, ...foodItems];
+            const foodBeveragePrice = combinedFoodBeverageArr?.reduce(
+              (sum, item) => sum + item?.price,
+              0
+            );
+            const totalPrice = foodBeveragePrice + cart?.ticketPrice;
+            updateCart({
+              ...cart,
+              foodBeverage: combinedFoodBeverageArr,
+              foodBeveragePrice,
+              totalPrice,
+            });
             navigation.navigate("BookingSummary");
           }}
         >

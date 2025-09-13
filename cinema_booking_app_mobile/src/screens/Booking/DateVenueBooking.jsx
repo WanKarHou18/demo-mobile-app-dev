@@ -16,17 +16,25 @@ import { useCart } from "../../hooks/useCart";
 
 const DateVenueBooking = () => {
   const navigation = useNavigation();
-  const { data, fetchData } = useBooking();
+  const { bookingSetting, fetchData } = useBooking();
   const { updateCart, cart, resetCart } = useCart();
 
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [selectedCinema, setSelectedCinema] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(
+    cart?.selectedLocation || ""
+  );
+  const [selectedCinema, setSelectedCinema] = useState(
+    cart?.selectedCinema || ""
+  );
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(cart?.selectedTime || "");
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("dvb cart", cart);
+  }, [cart]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -45,14 +53,14 @@ const DateVenueBooking = () => {
 
           <CustomDropdown
             label="Location"
-            options={data?.state}
+            options={bookingSetting?.state}
             selectedValue={selectedLocation}
             onValueChange={setSelectedLocation}
           />
 
           <CustomDropdown
             label="Cinema Location"
-            options={data?.cinema}
+            options={bookingSetting?.cinema}
             selectedValue={selectedCinema}
             onValueChange={setSelectedCinema}
           />
@@ -63,7 +71,7 @@ const DateVenueBooking = () => {
           {/* Time Selection */}
           <Text style={styles.label}>Available Time</Text>
           <View style={styles.timeRow}>
-            {data?.availableTime?.map((time) => (
+            {bookingSetting?.availableTime?.map((time) => (
               <TouchableOpacity
                 key={time}
                 style={[
@@ -122,7 +130,7 @@ const DateVenueBooking = () => {
                 ...cart,
                 selectedCinema,
                 selectedLocation,
-                selectedDate,
+                // selectedDate,
                 selectedTime,
               });
               navigation.navigate("SeatBooking");

@@ -10,7 +10,7 @@ export const useBooking = () => {
   };
 
   return {
-    data,
+    bookingSetting: data,
     loading,
     error,
     fetchData,

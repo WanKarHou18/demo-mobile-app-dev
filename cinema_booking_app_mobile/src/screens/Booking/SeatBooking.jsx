@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 
 import Header from "../../components/Header";
 import { useCart } from "../../hooks/useCart";
+import { useBooking } from "../../hooks/useBooking";
 
 const seatRows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 8;
@@ -19,11 +20,12 @@ const unavailableSeats = ["A3", "B5", "C2", "E7"];
 
 const SeatBooking = ({ navigation }) => {
   const { updateCart, cart } = useCart();
+  const { bookingSetting } = useBooking();
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   useEffect(() => {
-    console.log("cart", cart);
+    console.log("sb cart", cart);
   }, [cart]);
 
   const handleSelectSeat = (seatId) => {
@@ -39,14 +41,22 @@ const SeatBooking = ({ navigation }) => {
   const isSeatSelected = (seatId) => selectedSeats.includes(seatId);
   const isSeatUnavailable = (seatId) => unavailableSeats.includes(seatId);
 
-  const seatPrice = 15;
-  const total = selectedSeats.length * seatPrice;
+  const totalPrice = useMemo(() => {
+    return bookingSetting?.ticketPrice * selectedSeats?.length;
+  }, [selectedSeats]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header
         title="Ticket Booking"
         onBackPress={() => {
+          // Clear this screen data in slice - cart
+          updateCart({
+            ...cart,
+            selectedSeats: [],
+            ticketPrice: 0,
+            totalPrice: 0,
+          });
           navigation.goBack();
         }}
       />
@@ -110,7 +120,7 @@ const SeatBooking = ({ navigation }) => {
             <Text style={styles.summaryText}>
               Selected: {selectedSeats.join(", ") || "-"}
             </Text>
-            <Text style={styles.summaryText}>Subtotal: ${total}</Text>
+            <Text style={styles.summaryText}>Subtotal: ${totalPrice}</Text>
           </View>
         </ScrollView>
 
@@ -118,14 +128,28 @@ const SeatBooking = ({ navigation }) => {
         <View style={styles.buttonRow}>
           <TouchableOpacity
             style={styles.cancelButton}
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+              // Clear this screen data in slice - cart
+              updateCart({
+                ...cart,
+                selectedSeats: [],
+                ticketPrice: 0,
+                totalPrice: 0,
+              });
+              navigation.goBack();
+            }}
           >
             <Text style={styles.cancelText}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.proceedButton}
             onPress={() => {
-              // Proceed logic here
+              updateCart({
+                ...cart,
+                selectedSeats,
+                ticketPrice: totalPrice,
+                totalPrice,
+              });
               navigation.navigate("FoodBeverage");
             }}
           >

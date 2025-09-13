@@ -4,15 +4,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: {
-    movieId: "",
-    movieName: "",
-    selectedSeat: [],
+    selectedMovie: {},
+    selectedSeats: [],
     selectedLocation: "",
-    selectedDate: "",
+    // selectedDate: "",
     selectedCinema: "",
     selectedTime: "",
     foodBeverage: [],
-    price: 0,
+    ticketPrice: 0,
+    foodBeveragePrice: 0,
+    totalPrice: 0,
   },
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import { DottedLine } from "../components/DottedLine";
 import Header from "../components/Header";
+import { useCart } from "../hooks/useCart";
 const BookingSummary = ({ navigation }) => {
+  const { cart } = useCart();
   const movie = {
     image:
       "https://m.media-amazon.com/images/I/71niXI3lxlL._AC_UF894,1000_QL80_.jpg",
@@ -34,6 +36,10 @@ const BookingSummary = ({ navigation }) => {
   };
 
   const total = breakdown.tickets + breakdown.food + breakdown.charges;
+
+  useEffect(() => {
+    console.log("bs cart", cart);
+  }, [cart]);
 
   return (
     <View style={styles.container}>
