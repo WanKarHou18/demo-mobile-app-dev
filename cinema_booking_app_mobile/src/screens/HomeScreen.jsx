@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -28,11 +28,27 @@ const HomeScreen = () => {
   const { setSelectedMovieToView } = useAllContext();
   const [searchText, setSearchText] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [sortAsc, setSortAsc] = useState(false);
 
   // Filter movies based on search text
-  const filteredMovies = movies.filter((movie) =>
-    movie.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredMovies = useMemo(() => {
+    if (!movies) return [];
+
+    let result = movies;
+    if (searchText) {
+      result = movies.filter((movie) =>
+        movie.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+
+    const sortable = [...result];
+
+    sortable.sort((a, b) =>
+      sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+    );
+
+    return sortable;
+  }, [movies, searchText, sortAsc]);
 
   useEffect(() => {
     fetchData();
@@ -68,7 +84,11 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      <SearchBar searchText={searchText} setSearchText={setSearchText} />
+      <SearchBar
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setSortAsc={setSortAsc}
+      />
       <FlatList
         data={filteredMovies}
         numColumns={2}

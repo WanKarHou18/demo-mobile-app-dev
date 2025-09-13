@@ -2,7 +2,7 @@ import React from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-const SearchBar = ({ searchText, setSearchText }) => {
+const SearchBar = ({ searchText, setSearchText, setSortAsc }) => {
   return (
     <View style={styles.searchContainer}>
       <TextInput
@@ -12,7 +12,12 @@ const SearchBar = ({ searchText, setSearchText }) => {
         value={searchText}
         onChangeText={setSearchText}
       />
-      <TouchableOpacity style={styles.sortIcon}>
+      <TouchableOpacity
+        style={styles.sortIcon}
+        onPress={() => {
+          setSortAsc((prev) => !prev);
+        }}
+      >
         <FontAwesome name="sort" size={24} color="white" />
       </TouchableOpacity>
     </View>
@@ -41,6 +46,7 @@ const styles = StyleSheet.create({
   sortIcon: {
     position: "absolute",
     right: 10,
+    paddingBottom: 5,
   },
 });
 
