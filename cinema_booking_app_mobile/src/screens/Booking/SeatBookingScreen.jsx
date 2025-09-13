@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import {
 import Header from "../../components/Header";
 import { useCart } from "../../hooks/useCart";
 import { useBooking } from "../../hooks/useBooking";
+import { useAllContext } from "../../context/allContext";
+import CustomToast from "../../components/generic_components/CustomToast";
 
 const seatRows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 8;
@@ -21,6 +23,8 @@ const unavailableSeats = ["A3", "B5", "C2", "E7"];
 const SeatBookingScreen = ({ navigation }) => {
   const { updateCart, cart } = useCart();
   const { bookingSetting } = useBooking();
+  const { errorMessage, setErrorMessage, isVisibleToast, setIsVisibleToast } =
+    useAllContext();
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -45,6 +49,14 @@ const SeatBookingScreen = ({ navigation }) => {
     return bookingSetting?.ticketPrice * selectedSeats?.length;
   }, [selectedSeats]);
 
+  const validate = () => {
+    if (selectedSeats?.length === 0) {
+      setErrorMessage("Seat cannot be empty");
+      setIsVisibleToast(true);
+      return false;
+    }
+    return true;
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header
@@ -144,18 +156,29 @@ const SeatBookingScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.proceedButton}
             onPress={() => {
-              updateCart({
-                ...cart,
-                selectedSeats,
-                ticketPrice: totalPrice,
-              });
-              navigation.navigate("FoodBeverage");
+              const valid = validate();
+              if (valid) {
+                updateCart({
+                  ...cart,
+                  selectedSeats,
+                  ticketPrice: totalPrice,
+                });
+                navigation.navigate("FoodBeverage");
+              }
             }}
           >
             <Text style={styles.proceedText}>Proceed</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <CustomToast
+        visible={isVisibleToast}
+        message={errorMessage}
+        onHide={() => {
+          setIsVisibleToast(false);
+          setErrorMessage("");
+        }}
+      />
     </SafeAreaView>
   );
 };

@@ -15,9 +15,13 @@ import { useBooking } from "../../hooks/useBooking";
 import { useCart } from "../../hooks/useCart";
 import CustomDatePicker from "../../components/generic_components/CustomDatePicker";
 import formatDateWithMoment from "../../helpers/DateHelper";
+import CustomToast from "../../components/generic_components/CustomToast";
+import { useAllContext } from "../../context/allContext";
 
 const DateVenueBookingScreen = () => {
   const navigation = useNavigation();
+  const { errorMessage, setErrorMessage, isVisibleToast, setIsVisibleToast } =
+    useAllContext();
   const { bookingSetting, fetchData } = useBooking();
   const { updateCart, cart, resetCart } = useCart();
 
@@ -30,6 +34,33 @@ const DateVenueBookingScreen = () => {
   const [selectedDate, setSelectedDate] = useState(cart?.selectedDate || "");
   const [selectedTime, setSelectedTime] = useState(cart?.selectedTime || "");
 
+  const validate = () => {
+    if (!selectedLocation) {
+      setErrorMessage("Location cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+
+    if (!selectedCinema) {
+      setErrorMessage("Cinema cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+
+    if (!selectedDate) {
+      setErrorMessage("Date cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+
+    if (!selectedTime) {
+      setErrorMessage("Time cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+
+    return true;
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -134,20 +165,31 @@ const DateVenueBookingScreen = () => {
           <TouchableOpacity
             style={styles.proceedButton}
             onPress={() => {
-              updateCart({
-                ...cart,
-                selectedCinema,
-                selectedLocation,
-                selectedDate,
-                selectedTime,
-              });
-              navigation.navigate("SeatBooking");
+              const isValid = validate();
+              if (isValid) {
+                updateCart({
+                  ...cart,
+                  selectedCinema,
+                  selectedLocation,
+                  selectedDate,
+                  selectedTime,
+                });
+                navigation.navigate("SeatBooking");
+              }
             }}
           >
             <Text style={styles.proceedText}>Proceed</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <CustomToast
+        visible={isVisibleToast}
+        message={errorMessage}
+        onHide={() => {
+          setIsVisibleToast(false);
+          setErrorMessage("");
+        }}
+      />
     </SafeAreaView>
   );
 };
