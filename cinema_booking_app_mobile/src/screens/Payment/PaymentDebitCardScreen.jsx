@@ -12,9 +12,14 @@ import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/Header";
 import { useCart } from "../../hooks/useCart";
 import { useBooking } from "../../hooks/useBooking";
+import { useAllContext } from "../../context/allContext";
+import CustomToast from "../../components/generic_components/CustomToast";
 
 const PaymentDebitCardScreen = () => {
   const navigation = useNavigation();
+  const { errorMessage, setErrorMessage, isVisibleToast, setIsVisibleToast } =
+    useAllContext();
+
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
@@ -31,8 +36,29 @@ const PaymentDebitCardScreen = () => {
     );
   }, [cart, bookingSetting]);
 
+  const validate = () => {
+    if (!cardNumber) {
+      setErrorMessage("Card Number cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+    if (!expiryDate) {
+      setErrorMessage("Expiry Date cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+    if (!cvv) {
+      setErrorMessage("CVV De cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
+    return true;
+  };
   const handlePay = () => {
-    navigation.navigate("PaymentSuccess");
+    const valid = validate();
+    if (valid) {
+      navigation.navigate("PaymentSuccess");
+    }
   };
 
   return (
@@ -73,7 +99,7 @@ const PaymentDebitCardScreen = () => {
         </View>
 
         <View style={[styles.inputGroup, styles.halfInput]}>
-          <Text style={styles.label}>CVV2</Text>
+          <Text style={styles.label}>CVV</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter CVV"
@@ -105,6 +131,14 @@ const PaymentDebitCardScreen = () => {
       <TouchableOpacity style={styles.payButton} onPress={handlePay}>
         <Text style={styles.payButtonText}>Pay ${totalAmount}</Text>
       </TouchableOpacity>
+      <CustomToast
+        visible={isVisibleToast}
+        message={errorMessage}
+        onHide={() => {
+          setIsVisibleToast(false);
+          setErrorMessage("");
+        }}
+      />
     </View>
   );
 };

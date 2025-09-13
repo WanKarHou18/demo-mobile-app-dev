@@ -2,8 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
+import { useCart } from "../../hooks/useCart";
+
 const PaymentSuccessScreen = () => {
   const navigation = useNavigation();
+  const { resetCart } = useCart();
 
   return (
     <View style={styles.container}>
@@ -28,7 +31,10 @@ const PaymentSuccessScreen = () => {
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={[styles.button, styles.mainMenuButton]}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            resetCart();
+            navigation.navigate("Home");
+          }}
         >
           <FontAwesome
             name="arrow-left"
@@ -41,7 +47,10 @@ const PaymentSuccessScreen = () => {
 
         <TouchableOpacity
           style={[styles.button, styles.viewTicketButton]}
-          onPress={() => navigation.navigate("TicketDetail")}
+          onPress={() => {
+            resetCart();
+            navigation.navigate("Home");
+          }}
         >
           <FontAwesome
             name="ticket"
