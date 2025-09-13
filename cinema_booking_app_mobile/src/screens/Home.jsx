@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,26 +8,41 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomView from "../components/generic_components/CustomView";
 import SearchBar from "../components/SearchBar";
-import { useNavigation } from "@react-navigation/native";
-import { moviesDummyData } from "../dummy_data/Data";
+import { useMovie } from "../hooks/useMovie";
+import CustomPreloader from "../components/generic_components/CustomPreloader";
+import CustomAlert from "../components/generic_components/CustomAlert";
 
 const Home = () => {
   // State for search input
   const navigation = useNavigation();
+  const { data, loading, error, fetchData } = useMovie();
+
   const [searchText, setSearchText] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   // Filter movies based on search text
-  const filteredMovies = moviesDummyData.filter((movie) =>
+  const filteredMovies = data.filter((movie) =>
     movie.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    }
+  }, [error]);
 
   return (
     <View style={styles.container}>
       {/* Profile Section */}
+      {loading && <CustomPreloader />}
       <View style={styles.profileSection}>
         <CustomView
           style={{
@@ -61,6 +76,14 @@ const Home = () => {
             <Text style={styles.movieTitle}>{item.name}</Text>
           </TouchableOpacity>
         )}
+      />
+      <CustomAlert
+        visible={showAlert}
+        message={error}
+        onClose={() => {
+          setShowAlert(false);
+          setError(null);
+        }}
       />
     </View>
   );

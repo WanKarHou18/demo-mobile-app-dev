@@ -2,6 +2,7 @@
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Provider } from "react-redux";
 
 // this project
 import { Wrapper } from "./src/components/Context/Wrapper";
@@ -24,31 +25,40 @@ import DateVenueBooking from "./src/screens/Booking/DateVenueBooking";
 import SeatBooking from "./src/screens/Booking/SeatBooking";
 import BookingSummary from "./src/screens/BookingSummary";
 
+import store from "./src/redux/store";
 // Screens - Food Beverage
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Wrapper>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Splash"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="Splash" component={Splash} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="MovieDetail" component={MovieDetail} />
-          <Stack.Screen name="DateVenueBooking" component={DateVenueBooking} />
-          <Stack.Screen name="SeatBooking" component={SeatBooking} />
-          <Stack.Screen name="FoodBeverage" component={FoodBeverage} />
-          <Stack.Screen name="BookingSummary" component={BookingSummary} />
-          <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
-          <Stack.Screen name="PaymentDebitCard" component={PaymentDebitCard} />
-          <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Wrapper>
+    <Provider store={store}>
+      <Wrapper>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="MovieDetail" component={MovieDetail} />
+            <Stack.Screen
+              name="DateVenueBooking"
+              component={DateVenueBooking}
+            />
+            <Stack.Screen name="SeatBooking" component={SeatBooking} />
+            <Stack.Screen name="FoodBeverage" component={FoodBeverage} />
+            <Stack.Screen name="BookingSummary" component={BookingSummary} />
+            <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+            <Stack.Screen
+              name="PaymentDebitCard"
+              component={PaymentDebitCard}
+            />
+            <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Wrapper>
+    </Provider>
   );
 }
 
