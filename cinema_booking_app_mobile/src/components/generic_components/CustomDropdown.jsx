@@ -42,7 +42,7 @@ const CustomDropdown = ({ label, options, selectedValue, onValueChange }) => {
           <View style={styles.modalContent}>
             <FlatList
               data={options}
-              keyExtractor={(item) => `dropdown-${item.id}`}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.option}
