@@ -1,4 +1,11 @@
-import { View, Text, Modal, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 
 const CustomAlert = ({ visible, onClose, message }) => {
   return (
@@ -29,11 +36,14 @@ const styles = StyleSheet.create({
     width: "80%",
     backgroundColor: "#fff",
     borderRadius: 10,
-    padding: 20,
+    padding: Platform.select({
+      ios: 25,
+      android: 20,
+    }),
     alignItems: "center",
   },
   title: {
-    fontSize: 18,
+    fontSize: Platform.OS === "ios" ? 20 : 18,
     fontWeight: "bold",
     color: "#E50914",
     marginBottom: 10,

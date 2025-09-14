@@ -47,11 +47,11 @@ const DateVenueBookingScreen = () => {
       return false;
     }
 
-    // if (!selectedDate) {
-    //   setErrorMessage("Date cannot be blank");
-    //   setIsVisibleToast(true);
-    //   return false;
-    // }
+    if (!selectedDate) {
+      setErrorMessage("Date cannot be blank");
+      setIsVisibleToast(true);
+      return false;
+    }
 
     if (!selectedTime) {
       setErrorMessage("Time cannot be blank");
