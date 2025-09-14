@@ -47,11 +47,11 @@ const DateVenueBookingScreen = () => {
       return false;
     }
 
-    if (!selectedDate) {
-      setErrorMessage("Date cannot be blank");
-      setIsVisibleToast(true);
-      return false;
-    }
+    // if (!selectedDate) {
+    //   setErrorMessage("Date cannot be blank");
+    //   setIsVisibleToast(true);
+    //   return false;
+    // }
 
     if (!selectedTime) {
       setErrorMessage("Time cannot be blank");
@@ -65,9 +65,9 @@ const DateVenueBookingScreen = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("dvb cart", cart);
-  }, [cart]);
+  // useEffect(() => {
+  //   console.log("dvb cart", cart);
+  // }, [cart]);
 
   return (
     <SafeAreaView style={styles.safeArea}>

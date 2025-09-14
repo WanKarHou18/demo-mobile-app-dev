@@ -68,9 +68,9 @@ const FoodBeverageScreen = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log("fb cart", cart);
-  }, [cart]);
+  // useEffect(() => {
+  //   console.log("fb cart", cart);
+  // }, [cart]);
 
   return (
     <View style={styles.container}>

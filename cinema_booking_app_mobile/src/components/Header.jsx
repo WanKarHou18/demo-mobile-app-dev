@@ -4,13 +4,16 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 
 const Header = ({ title, onBackPress, showSkip = false, onSkip }) => {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       {/* Left: Back button */}
       <TouchableOpacity onPress={onBackPress} style={styles.left}>
-        <FontAwesome name="chevron-left" size={24} color="white" />
+        <FontAwesome
+          name="chevron-left"
+          size={24}
+          color="white"
+          onPress={onBackPress}
+        />
       </TouchableOpacity>
 
       {/* Center: Title */}

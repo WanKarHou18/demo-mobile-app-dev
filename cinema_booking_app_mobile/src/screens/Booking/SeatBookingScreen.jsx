@@ -7,18 +7,19 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import io from "socket.io-client";
 
 import Header from "../../components/Header";
 import { useCart } from "../../hooks/useCart";
 import { useBooking } from "../../hooks/useBooking";
 import { useAllContext } from "../../context/allContext";
 import CustomToast from "../../components/generic_components/CustomToast";
+import { BASE_URL, LAPTOP_IPV4, LOCAL_HOST } from "../../constants/Config";
 
+// Setup constants
 const seatRows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 8;
-
-// Dummy unavailable seats
-const unavailableSeats = ["A3", "B5", "C2", "E7"];
+const hallId = "hall_1";
 
 const SeatBookingScreen = ({ navigation }) => {
   const { updateCart, cart } = useCart();
@@ -26,43 +27,92 @@ const SeatBookingScreen = ({ navigation }) => {
   const { errorMessage, setErrorMessage, isVisibleToast, setIsVisibleToast } =
     useAllContext();
 
+  const [myLockedSeats, setMyLockedSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [seatStatus, setSeatStatus] = useState({});
 
+  // Socket connection (memoized)
+  const socket = useMemo(
+    () => io(`${LOCAL_HOST}:3000`, { transports: ["websocket"] }),
+    []
+  );
+
+  // Handle socket connection
   useEffect(() => {
-    console.log("sb cart", cart);
-  }, [cart]);
+    socket.on("connecting", () => {
+      console.log("Socket is connecting...");
+    });
 
+    // Fires when the connection is established
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+    });
+    socket.emit("join_hall", hallId);
+
+    // Initial seat state
+    socket.on("seat_state", (data) => {
+      setSeatStatus(data);
+    });
+
+    // Real-time updates
+    socket.on("seat_state_update", ({ seatId, status }) => {
+      setSeatStatus((prev) => ({
+        ...prev,
+        [seatId]: status,
+      }));
+    });
+
+    return () => {
+      socket.off("seat_state");
+      socket.off("seat_state_update");
+      socket.disconnect();
+    };
+  }, [socket]);
+
+  // Seat selection handler
   const handleSelectSeat = (seatId) => {
-    if (unavailableSeats.includes(seatId)) return;
+    const currentStatus = seatStatus[seatId] || "vacant";
+
+    if (currentStatus === "booked") return;
 
     if (selectedSeats.includes(seatId)) {
+      // Unselect seat
       setSelectedSeats(selectedSeats.filter((seat) => seat !== seatId));
+      setMyLockedSeats(myLockedSeats.filter((seat) => seat !== seatId));
+      socket.emit("release_seat", { hallId, seatId });
     } else {
+      // Select seat
       setSelectedSeats([...selectedSeats, seatId]);
+      setMyLockedSeats([...myLockedSeats, seatId]);
+      socket.emit("select_seat", { hallId, seatId });
     }
   };
 
   const isSeatSelected = (seatId) => selectedSeats.includes(seatId);
-  const isSeatUnavailable = (seatId) => unavailableSeats.includes(seatId);
+  const isSeatUnavailable = (seatId) => {
+    const status = seatStatus[seatId];
+    const isLockedByMe = myLockedSeats.includes(seatId);
+    return status === "booked" || (status === "locked" && !isLockedByMe);
+  };
 
   const totalPrice = useMemo(() => {
-    return bookingSetting?.ticketPrice * selectedSeats?.length;
+    return bookingSetting?.ticketPrice * selectedSeats.length;
   }, [selectedSeats]);
 
   const validate = () => {
-    if (selectedSeats?.length === 0) {
+    if (selectedSeats.length === 0) {
       setErrorMessage("Seat cannot be empty");
       setIsVisibleToast(true);
       return false;
     }
     return true;
   };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header
         title="Ticket Booking"
         onBackPress={() => {
-          // Clear this screen data in slice - cart
           updateCart({
             ...cart,
             selectedSeats: [],
@@ -109,6 +159,7 @@ const SeatBookingScreen = ({ navigation }) => {
                   const seatId = `${row}${i + 1}`;
                   const isSelected = isSeatSelected(seatId);
                   const isUnavailable = isSeatUnavailable(seatId);
+
                   return (
                     <TouchableOpacity
                       key={seatId}
@@ -141,13 +192,17 @@ const SeatBookingScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.cancelButton}
             onPress={() => {
-              // Clear this screen data in slice - cart
+              selectedSeats.forEach((seatId) => {
+                socket.emit("release_seat", { hallId, seatId });
+              });
+
               updateCart({
                 ...cart,
                 selectedSeats: [],
                 ticketPrice: 0,
                 totalPrice: 0,
               });
+
               navigation.goBack();
             }}
           >
@@ -158,6 +213,9 @@ const SeatBookingScreen = ({ navigation }) => {
             onPress={() => {
               const valid = validate();
               if (valid) {
+                selectedSeats.forEach((seatId) => {
+                  socket.emit("book_seat", { hallId, seatId });
+                });
                 updateCart({
                   ...cart,
                   selectedSeats,
@@ -171,6 +229,7 @@ const SeatBookingScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+
       <CustomToast
         visible={isVisibleToast}
         message={errorMessage}

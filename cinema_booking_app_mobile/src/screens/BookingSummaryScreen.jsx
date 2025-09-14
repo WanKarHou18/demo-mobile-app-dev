@@ -23,9 +23,9 @@ const BookingSummaryScreen = ({ navigation }) => {
     );
   }, [cart, bookingSetting]);
 
-  useEffect(() => {
-    console.log("bs cart", cart);
-  }, [cart]);
+  // useEffect(() => {
+  //   console.log("bs cart", cart);
+  // }, [cart]);
 
   return (
     <View style={styles.container}>

@@ -34,9 +34,9 @@ const MovieDetailScreen = () => {
     navigation.navigate("DateVenueBooking");
   };
 
-  useEffect(() => {
-    console.log("md cart", cart);
-  }, [cart]);
+  // useEffect(() => {
+  //   console.log("md cart", cart);
+  // }, [cart]);
 
   return (
     <View style={styles.container}>

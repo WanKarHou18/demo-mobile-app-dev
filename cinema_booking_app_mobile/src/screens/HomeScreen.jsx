@@ -44,7 +44,9 @@ const HomeScreen = () => {
     const sortable = [...result];
 
     sortable.sort((a, b) =>
-      sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+      sortAsc
+        ? a?.name?.localeCompare(b?.name)
+        : b?.name?.localeCompare(a?.name)
     );
 
     return sortable;
@@ -111,7 +113,6 @@ const HomeScreen = () => {
         message={error}
         onClose={() => {
           setShowAlert(false);
-          setError(null);
         }}
       />
     </View>
