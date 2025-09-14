@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1",
+    "name": "Inception",
+    "description": "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTM0MjUzNjkwMl5BMl5BanBnXkFtZTcwNjY0OTk1Mw@@._V1_.jpg",
+    "reviews": [
+      { "user": "Alice", "comment": "Mind-bending thriller!", "rating": 5 },
+      { "user": "Bob", "comment": "Loved the visuals.", "rating": 4 }
+    ],
+    "tags": ["thriller", "sci-fi", "action"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "2h28m",
+    "releaseDate": "July 2010"
+  },
+  {
+    "id": "2",
+    "name": "The Dark Knight",
+    "description": "Batman faces the Joker, a criminal mastermind who unleashes chaos on Gotham City.",
+    "video": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "photo": "https://i.guim.co.uk/img/media/c8c00617b792d1d53f2d2b318820d5758dc61551/231_0_2968_1782/master/2968.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=b8c80905bc7264df9060efdc6f6a4aa1",
+    "reviews": [
+      { "user": "Carol", "comment": "Best superhero movie ever!", "rating": 5 },
+      { "user": "Dave", "comment": "Heath Ledger was phenomenal.", "rating": 5 }
+    ],
+    "tags": ["action", "drama", "crime"],
+    "maxStar": 5,
+    "currStar": 5,
+    "duration": "2h32m",
+    "releaseDate": "July 2008"
+  },
+  {
+    "id": "3",
+    "name": "Interstellar",
+    "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+    "video": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+    "photo": "https://images3.alphacoders.com/551/551456.jpg",
+    "reviews": [
+      { "user": "Eve", "comment": "A beautiful space epic.", "rating": 4 },
+      { "user": "Frank", "comment": "Complex but rewarding.", "rating": 4 }
+    ],
+    "tags": ["sci-fi", "adventure", "drama"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "2h49m",
+    "releaseDate": "November 2014"
+  },
+  {
+    "id": "4",
+    "name": "Dunkirk",
+    "description": "Allied soldiers are surrounded by the German army and evacuated during a fierce battle in World War II.",
+    "video": "https://www.youtube.com/watch?v=F-eMt3SrfFU",
+    "photo": "https://m.media-amazon.com/images/M/MV5BZWU5ZjJkNTQtMzQwOS00ZGE4LWJkMWUtMGQ5YjdiM2FhYmRhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "reviews": [
+      { "user": "Grace", "comment": "Intense war film.", "rating": 4 },
+      { "user": "Henry", "comment": "Amazing cinematography.", "rating": 5 }
+    ],
+    "tags": ["war", "drama", "history"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "1h46m",
+    "releaseDate": "July 2017"
+  },
+  {
+    "id": "5",
+    "name": "Tenet",
+    "description": "A secret agent embarks on a mission that unfolds beyond real time to prevent World War III.",
+    "video": "https://www.youtube.com/watch?v=L3pk_TBkihU",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTU0ZjZlYTUtYzIwMC00ZmQzLWEwZTAtZWFhMWIwYjMxY2I3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "reviews": [
+      { "user": "Ivy", "comment": "Very confusing but cool.", "rating": 3 },
+      { "user": "Jack", "comment": "Great action sequences.", "rating": 4 }
+    ],
+    "tags": ["action", "sci-fi", "thriller"],
+    "maxStar": 5,
+    "currStar": 3,
+    "duration": "2h30m",
+    "releaseDate": "August 2020"
+  },
+  {
+    "id": "6",
+    "name": "Memento",
+    "description": "A man with short-term memory loss attempts to solve his wife's murder using notes and tattoos.",
+    "video": "https://www.youtube.com/watch?v=4CV41hoyS8A",
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiKA2fKKpQfUV-LA9c0g6iQRHyAbuQjkdYgw&s",
+    "reviews": [
+      { "user": "Kate", "comment": "Unique storytelling.", "rating": 5 },
+      { "user": "Leo", "comment": "Keeps you guessing.", "rating": 4 }
+    ],
+    "tags": ["thriller", "mystery", "drama"],
+    "maxStar": 5,
+    "currStar": 4,
+    "duration": "1h53m",
+    "releaseDate": "March 2000"
+  }
+]

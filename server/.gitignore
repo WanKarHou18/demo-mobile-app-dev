@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Optional npm cache
+.npm/
+
+# Coverage reports
+coverage/
+
+# Optional debug output
+debug.log
+
+# VSCode settings (optional)
+.vscode/

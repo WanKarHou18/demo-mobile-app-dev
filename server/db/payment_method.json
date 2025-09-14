@@ -1,0 +1,5 @@
+[
+  { "name": "Debit Card", "key": "debit" },
+  { "name": "Bank Transfer", "key": "bank" },
+  { "name": "Crypto Wallets", "key": "crypto" }
+]
