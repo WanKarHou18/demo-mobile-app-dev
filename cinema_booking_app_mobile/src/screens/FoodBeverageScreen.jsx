@@ -118,7 +118,7 @@ const FoodBeverageScreen = () => {
       {/* Item Grid */}
       <FlatList
         data={itemsToDisplay}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => `foodBeverage-${item.id}`}
         numColumns={2}
         renderItem={renderItem}
         contentContainerStyle={styles.grid}

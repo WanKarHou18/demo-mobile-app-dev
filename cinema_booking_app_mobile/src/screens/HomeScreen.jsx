@@ -1,3 +1,4 @@
+// HomeScreen.js
 import { useState, useEffect, useMemo } from "react";
 import {
   View,
@@ -20,7 +21,6 @@ import { useProfile } from "../hooks/useProfile";
 import CustomAvatar from "../components/generic_components/CustomAvatar";
 
 const HomeScreen = () => {
-  // State for search input
   const navigation = useNavigation();
   const { movies, loading, error, fetchData } = useMovie();
   const { profile, fetchProfileInfoData } = useProfile();
@@ -30,7 +30,6 @@ const HomeScreen = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [sortAsc, setSortAsc] = useState(false);
 
-  // Filter movies based on search text
   const filteredMovies = useMemo(() => {
     if (!movies) return [];
 
@@ -64,10 +63,10 @@ const HomeScreen = () => {
   }, [error]);
 
   return (
-    <View style={styles.container}>
-      {/* Profile Section */}
-      {loading && <CustomPreloader />}
-      <View style={styles.profileSection}>
+    <View style={styles.container} testID="home-screen">
+      {loading && <CustomPreloader testID="preloader" />}
+
+      <View style={styles.profileSection} testID="profile-section">
         <CustomView
           style={{
             flexDirection: "row",
@@ -76,39 +75,61 @@ const HomeScreen = () => {
             gap: 15,
           }}
         >
-          <CustomAvatar uri={profile?.photo} size={60} />
-          <Text style={styles.username}>Hello, {profile?.name}</Text>
+          <CustomAvatar
+            uri={profile?.photo}
+            size={60}
+            testID="avatar-component"
+          />
+          <Text style={styles.username} testID="username-text">
+            Hello, {profile?.name}
+          </Text>
         </CustomView>
+
         <View style={styles.profileTextContainer}>
-          <TouchableOpacity style={styles.notificationIcon}>
+          <TouchableOpacity
+            style={styles.notificationIcon}
+            testID="notification-button"
+          >
             <FontAwesome name="bell" size={24} color="white" />
           </TouchableOpacity>
         </View>
       </View>
 
       <SearchBar
+        testID="search-bar"
         searchText={searchText}
         setSearchText={setSearchText}
         setSortAsc={setSortAsc}
       />
+
       <FlatList
+        testID="movie-list"
         data={filteredMovies}
         numColumns={2}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => `movie_list-${item.id}`}
         renderItem={({ item }) => (
           <TouchableOpacity
+            testID={`movie-card-${item.id}`}
             style={styles.movieItem}
             onPress={() => {
               setSelectedMovieToView(item);
               navigation.navigate("MovieDetail");
             }}
           >
-            <Image source={{ uri: item.photo }} style={styles.movieImage} />
-            <Text style={styles.movieTitle}>{item.name}</Text>
+            <Image
+              source={{ uri: item.photo }}
+              style={styles.movieImage}
+              testID={`movie-image-${item.id}`}
+            />
+            <Text style={styles.movieTitle} testID={`movie-title-${item.id}`}>
+              {item.name}
+            </Text>
           </TouchableOpacity>
         )}
       />
+
       <CustomAlert
+        testID="error-alert"
         visible={showAlert}
         message={error}
         onClose={() => {
